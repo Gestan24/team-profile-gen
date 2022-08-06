@@ -5,7 +5,6 @@ const generateSite = require('./utils/generate-site.js');
 const { writeFile } = require('./utils/writeHTML.js');
 
 const fs = require('fs');
-const { profile } = require('console');
 
 const promptManager = () => {
 
@@ -230,6 +229,8 @@ const confirmAdd = () => {
 
 const engineer = (profileData) => {
 
+    profileData = [];
+
     return inquirer.prompt([
 
         {
@@ -356,6 +357,8 @@ const engineer = (profileData) => {
 
 const intern = (profileData) => {
 
+    profileData = [];
+
     return inquirer.prompt([
 
         {
@@ -467,9 +470,9 @@ const intern = (profileData) => {
 
         if (answers) {
 
-            employeeArr.push(answers);
+            profileData.push(answers);
 
-            console.log(profileData);
+            console.log(profileData)
 
             return profileData;
 
