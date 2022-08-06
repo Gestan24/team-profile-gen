@@ -1,5 +1,12 @@
 const inquirer = require('inquirer');
 
+const generateSite = require('./utils/generate-site.js');
+
+const { writeFile } = require('./utils/writeHTML.js');
+
+const fs = require('fs');
+const { profile } = require('console');
+
 const promptManager = () => {
 
 
@@ -9,7 +16,7 @@ const promptManager = () => {
 
             type: 'input',
 
-            name: 'managerName',
+            name: 'manager',
 
             message: 'What is your name?',
 
@@ -87,7 +94,7 @@ const promptManager = () => {
 
             type: 'input',
 
-            name: 'officeNum',
+            name: 'office',
 
             message: 'What is your office number?',
 
@@ -124,9 +131,9 @@ const promptAddTeam = profileData => {
     
     `);
 
-    if (!profileData.teams) {
+    if (!profileData.info) {
 
-        profileData.teams = [];
+        profileData.info = [];
 
     }
 
@@ -183,7 +190,7 @@ const promptAddTeam = profileData => {
 
         .then(teamsData => {
 
-            profileData.teams.push(teamsData);
+            profileData.info.push(teamsData);
 
             if (teamsData.confirmAddMember) {
 
@@ -221,7 +228,7 @@ const confirmAdd = () => {
 }
 
 
-function engineer() {
+const engineer = (profileData) => {
 
     return inquirer.prompt([
 
@@ -229,7 +236,7 @@ function engineer() {
 
             type: 'input',
 
-            name: 'engineerName',
+            name: 'engineer',
 
             message: "What is your engineer's name?",
 
@@ -328,11 +335,26 @@ function engineer() {
             }
 
         }
-    ]).then(confirmAdd)
+    ]).then(answers => {
+
+
+        if (answers) {
+
+            profileData.push(answers);
+
+            return profileData;
+
+        } else {
+
+            return '';
+        }
+    })
+    
+    .then(confirmAdd)
 
 };
 
-function intern() {
+const intern = (profileData) => {
 
     return inquirer.prompt([
 
@@ -340,7 +362,7 @@ function intern() {
 
             type: 'input',
 
-            name: 'internName',
+            name: 'intern',
 
             message: "What is your intern's name?",
 
@@ -418,7 +440,7 @@ function intern() {
 
             type: 'input',
 
-            name: 'internSchool',
+            name: 'school',
 
             message: "What school did your intern's attend?",
 
@@ -440,7 +462,23 @@ function intern() {
 
         }
 
-    ]).then(confirmAdd)
+    ]).then(answers => {
+
+
+        if (answers) {
+
+            employeeArr.push(answers);
+
+            console.log(profileData);
+
+            return profileData;
+
+        } else {
+
+            return '';
+        }
+    
+    }).then(confirmAdd)
 }
 
 promptManager()
@@ -449,6 +487,24 @@ promptManager()
 
     .then(profileData => {
 
-        return generatePage(profileData);
+        return generateSite(profileData);
+
+    })
+
+    .then(pageHTML => {
+
+        return writeFile(pageHTML);
+
+    })
+
+    .then(writeFileResponse => {
+
+        console.log(writeFileResponse);
+
+    })
+
+    .catch(err => {
+
+        console.log(err);
 
     })
