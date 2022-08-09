@@ -126,6 +126,66 @@ function renderIntern(employeeRole, intern, internId, internEmail, school) {
 
 }
 
+function renderEngineer(engineer, engineerEmail, engineerId, github, employeeRole) {
+
+    if (!engineer) {
+
+        return '';
+
+    } 
+
+    return `
+    
+    <div class="column is-4 is-flex is-justify-content-space-around">
+
+    <div class="card pb-3">
+
+        <div class="card-header bg-primary is-flex-wrap-wrap">
+
+         <h1 class="column is-full title is-size-2 has-text-white">
+
+            ${engineer}
+
+        </h1>
+
+        <h2 class="column is-full subtitle is-size-3 has-text-white">
+
+            ${employeeRole}
+
+        </h2>
+        
+    </div>
+
+    <div class="card-content m-5 p-0 is-flex-wrap-wrap">
+        
+
+        <div id="info" class="column">
+        
+            ID: ${engineerId}
+        
+        </div>
+
+        <div id="info" class="column">
+
+            Email:
+        
+            <a href="mailto:${engineerEmail}">${engineerEmail}</a>
+        
+        </div>
+
+        <div id="info-last" class="column">
+        
+            School: ${github}
+        
+        </div>
+
+    </div>
+
+</div>
+
+`;
+}
+
 
 
 
@@ -207,7 +267,8 @@ module.exports = templateData => {
       ${renderManagerInfo(manager, managerId, managerEmail, office)}
 
       ${renderIntern(employeeRole, intern, internId, internEmail, school)}
-      
+
+      ${renderEngineer(employeeRole, engineer, engineerEmail, engineerId, github)} 
       
     </div>
     
