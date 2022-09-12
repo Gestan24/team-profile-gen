@@ -28,4 +28,4 @@ You'll need to install npm and inquirer to run this app!
 
 ## Demonstation Link
 
-[demo](./dist/team-profile-gen-vod.webm)
+[demo](https://drive.google.com/file/d/1oU7PMyqgz6rYiM-UQs5G78G7uN1EQuMw/view)
